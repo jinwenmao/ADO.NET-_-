@@ -477,8 +477,9 @@ namespace EditSamples
 			// 
 			// cnStudent
 			// 
-			this.cnStudent.ConnectionString = "packet size=4096;integrated security=SSPI;data source=\".\";persist security info=F" +
-				"alse;initial catalog=student";
+            //this.cnStudent.ConnectionString = "packet size=4096;integrated security=SSPI;data source=\".\";persist security info=F" +
+            //    "alse;initial catalog=student";
+            this.cnStudent.ConnectionString = "Data Source=.\\sqlexpress;Initial Catalog=student;Integrated Security=True";
 			// 
 			// btnEdit
 			// 
@@ -725,7 +726,11 @@ namespace EditSamples
 
 		private void frmEditData_Load(object sender, System.EventArgs e)
 		{
-			this.daStudent.Fill(this.dsStudent1);
+            //cnStudent = new SqlConnection("");
+            string strSql = "select stu_id,name,sex,addr from student";
+            daStudent = new SqlDataAdapter(strSql, cnStudent);
+            //DataSet dsStudent = new DataSet();
+			this.daStudent.Fill(this.dsStudent1,"student");
 			UpdateDisplay();
 		}
 
