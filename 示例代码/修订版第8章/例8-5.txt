@@ -1,0 +1,53 @@
+（3）切换到HTML视图，在代码“<asp:DataList id="DataList1" runat="server">”和“</asp:DataList>”之间输入以下代码：
+<asp:DataList id="DataList1" runat="server">
+<HeaderTemplate>
+<FONT face="宋体">雇员信息</FONT>
+</HeaderTemplate>
+<SelectedItemTemplate>
+姓:<%#DataBinder.Eval(Container.DataItem,"lastName")%><BR>
+名:<%#DataBinder.Eval(Container.DataItem,"firstName")%><BR>
+职务:<%#DataBinder.Eval(Container.DataItem,"title")%><BR>
+地址:<%#DataBinder.Eval(Container.DataItem,"address")%><BR>
+城市:<%#DataBinder.Eval(Container.DataItem,"city")%><BR>
+<FONT face="宋体"></FONT>
+</SelectedItemTemplate>
+<ItemTemplate>
+<asp:Button id="Button1" runat="server" Text="查看"></asp:Button></FONT>
+<%#DataBinder.Eval(Container.DataItem,"lastname")%>
+</ItemTemplate>
+</asp:DataList>
+
+
+（5）在WebForm1的代码隐藏事件处理程序中添加如下程序代码：
+private void Page_Load(object sender, System.EventArgs e)
+{
+// 页面初始化进行数据绑定
+if (!Page.IsPostBack) binDataGrid1rid();
+}
+void binDataGrid1rid()
+//显示Northwind数据库中Employees表的值的函数
+{
+	//创建连接对象
+SqlConnection sqlcon=new SqlConnection("user id=sa;data source=local;persist security info=False;initial catalog=Northwind");
+//创建数据集
+DataSet ds=new DataSet();
+//打开连接
+sqlcon.Open();
+//创建数据适配器
+SqlDataAdapter sqld=new SqlDataAdapter("select employeeid,lastname,firstname,title, address,city from employees",sqlcon);
+//填充数据集
+sqld.Fill(ds,"tbemp");
+//数据绑定
+this.DataList1.DataSource=ds.Tables["tbemp"];
+this.DataList1.DataBind();
+//关闭连接
+sqlcon.Close();
+sqlcon=null;}
+
+（6）在DataList1_ItemCommand事件中添加以下代码：
+private void DataList1_ItemCommand(object sourceSystem.Web.UI.WebControls.DataList CommandEventArgs e)
+	{
+//设置DataList的选中行的索引为当前选择行的索引
+	this.DataList1 .SelectedIndex=e.Item.ItemIndex; 	//数据绑定	
+	binDataGrid1rid();
+}

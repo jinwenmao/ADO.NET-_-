@@ -1,0 +1,16 @@
+void SaveDataSetChanges()
+{
+try
+{
+DataSet  myDS = new DataSet();
+//加载一个具有内联架构的XML文件到DataSet数据集
+//如果不具有内联XML数据，需要先加载架构，再加载数据 
+myDS.ReadXml(@"C:\sampledata\Customers.xml",_
+XmlReadMode.ReadSchema);
+// 修改DataSet 中的信息
+// 删除一行
+myDS.Tables[0].Rows[1].delete();
+// 将DataSet中的部分数据保存到Diffgram 
+myDS.WriteXml(@"C:\sampledata\CustomerChanges.xml",_
+XmlWriteMode.DiffGram);
+}

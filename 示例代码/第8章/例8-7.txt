@@ -1,0 +1,61 @@
+在 EditCommand 事件处理程序中添加下面的代码： 
+DataGrid1.EditItemIndex = e.Item.ItemIndex;
+DataGrid1.DataBind();
+在 CancelCommand 事件处理程序中添加下面的代码： 
+DataGrid1.EditItemIndex = -1;
+DataGrid1.DataBind();
+
+
+第三步
+下面的代码显示完成的 UpdateCommand 事件处理程序
+private void DataGrid1_UpdateCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+{
+	string stuid,name,sex,cla,addr;
+/*通过获取传入事件对象的行（Item 对象）的 ItemIndex 属性确定哪个 DataGrid 行已被更新。然后使用该索引值从网格的 DataKeys 集合中获取对//应的值。*/
+	string key = DataGrid1.DataKeys[e.Item.ItemIndex].ToString();
+	TextBox tb;
+//从 DataGrid 行中获取更改的值
+	tb = (TextBox) e.Item.Cells[1].Controls[0];
+	stuid = tb.Text;
+	tb = (TextBox) e.Item.Cells[2].Controls[0];
+	cla = tb.Text;
+	tb = (TextBox) e.Item.Cells[3].Controls[0];
+	name = tb.Text;
+	tb = (TextBox) e.Item.Cells[4].Controls[0];
+	sex = tb.Text;
+	tb = (TextBox) e.Item.Cells[5].Controls[0];
+	addr = tb.Text;
+	DataSet1.studentRow  r;
+//在数据表中查找对应的行
+	r = dsStu.student.FindBystu_id(key);
+//通过更改r行中的值更新该行
+	r.stu_id   = stuid;
+	r.cla_id  = cla;
+	r.name =name;
+	r.addr =addr;
+	r.sex =sex;
+//通过调用数据适配器的 Update 方法将更改从数据集发送到数据库
+	this.daStudent.Update(this.dsStu ) ;
+//将网格中的当前行切换出编辑模式。
+	DataGrid1.EditItemIndex = -1;
+//数据绑定 DataGrid 控件
+	DataGrid1.DataBind();
+	}
+
+第四步  删除数据
+为控件的 DeleteCommand 事件创建一个事件处理程序。在该事件处理程序中，使用 e.Item.ItemIndex 属性标识要删除的行。从数据源中删除该行并将数据重新绑定到控件。代码如下所示： 
+private void DataGrid1_DeleteCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+{
+int rowToDelete = e.Item.ItemIndex;
+dsStu.student.Rows[rowToDelete].Delete();
+this.daStudent.Update(this.dsStu ) ;
+DataGrid1.DataBind();
+}
+
+第五步  在数据网格中实现排序
+private void DataGrid1_SortCommand(object source, System.Web.UI.WebControls.DataGridSortCommandEventArgs e)
+{
+this.dataView1.Sort=e.SortExpression;
+	this.DataBind();
+}
+

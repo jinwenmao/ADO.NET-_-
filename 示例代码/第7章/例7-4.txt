@@ -1,0 +1,32 @@
+1、修改displayForamt方法
+private void displayForamt()
+{
+this.tb_birthday.DataBindings[0].Format+=new ConvertEventHandler(frmStudent_Format);
+this.tb_birthday.DataBindings[0].Parse+=new ConvertEventHandler(frmStudent_Parse);
+}
+2、定义frmStudent_Parse方法
+private void frmStudent_Parse(object sender, ConvertEventArgs e)
+{
+DateTime dDT;
+string sDT;
+sDT=e.Value.ToString();
+this.tb_birthday.Tag ="PARSE";
+if (sDT=="")
+{
+	dDT=DateTime.Today;
+}
+else
+{
+	 dDT=DateTime.Parse(sDT);
+}
+e.Value=dDT;
+}
+3、定义CtoD方法取消已格式化的“性别”数据。
+private void CtoD( object sender, ConvertEventArgs cevent ) 
+{
+if (cevent.Value.ToString()=="男") 
+		cevent.Value="W";
+	else 
+		cevent.Value="M";
+		this.tb_Sex.Tag="PARSE";
+}

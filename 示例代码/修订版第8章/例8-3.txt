@@ -1,0 +1,65 @@
+private void Page_Load(object sender, System.EventArgs e)
+{
+	// 页面初始化进行数据绑定
+	if (!Page.IsPostBack) binDataGrid1rid();
+}
+void binDataGrid1rid()//显示Northwind数据库中Employees表的值的函数
+{
+	//创建连接对象
+	SqlConnection sqlcon=new SqlConnection("user id=sa;data source=local;persist security info=False;initial catalog=Northwind");
+	//创建数据集
+	DataSet ds=new DataSet();
+	//打开连接
+	sqlcon.Open();
+	//创建数据适配器
+	SqlDataAdapter sqld=new SqlDataAdapter("select employeeid,lastname,firstname,city from employees",sqlcon);
+	//数据填充
+	sqld.Fill(ds,"tabemp");
+	DataGrid1.DataSource=ds.Tables["tabemp"].DefaultView ;
+	//数据绑定
+	DataGrid1.DataBind();
+	//关闭连接
+	sqlcon.Close();
+	sqlcon=null;
+}
+void gridedit(Object sender,DataGridCommandEventArgs e)//编辑命令函数
+{
+	//设置DataGrid控件的编辑项的索引为选择的当前项
+	DataGrid1.EditItemIndex=e.Item.ItemIndex;
+	//数据绑定
+	binDataGrid1rid();
+}
+void gridcancel(Object sender,DataGridCommandEventArgs e)//取消命令函数
+{
+	//设置DataGrid控件的编辑项的索引为-1，取消编辑
+	DataGrid1.EditItemIndex=-1;
+
+	//数据绑定
+	binDataGrid1rid();
+}
+void gridupdate(Object sender,DataGridCommandEventArgs e)//更新命令函数
+{
+	//取得编辑行的关键字段的值
+	int empid=(int)DataGrid1.DataKeys[e.Item.ItemIndex];	
+	//取得文本框中的输入内容
+	TextBox cy=(TextBox)e.Item.FindControl ("city");
+	//连接字符串
+	string strsql="update employees set city='" +cy.Text + "' where employeeid='" + empid.ToString() + "'";
+	//创建连接
+	SqlConnection sqlcon=new SqlConnection("user id=sa;data source=local;persist security info=False;initial catalog=Northwind");
+	//打开连接
+	sqlcon.Open();
+	//定义命令对象
+	SqlCommand sqlcommand=new SqlCommand();
+	sqlcommand.Connection=sqlcon;
+	sqlcommand.CommandText=strsql;
+	//执行SQL命令
+	sqlcommand.ExecuteNonQuery();
+	//关闭连接
+	sqlcon.Close();
+	sqlcon=null;
+	sqlcommand=null;
+	//取消编辑
+	DataGrid1.EditItemIndex=-1;
+	binDataGrid1rid();
+}

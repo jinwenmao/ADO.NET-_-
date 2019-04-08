@@ -1,0 +1,11 @@
+1、在frmStudent窗体构造函数后面添加如下代码
+this.dsStudents.student.ColumnChanging+=new DataColumnChangeEventHandler(student_ColumnChanging);
+2、把下列语句添加到类文件中
+	private void student_ColumnChanging(object sender, DataColumnChangeEventArgs e)
+	{
+	  if (e.Column .ColumnName.ToString ()=="stu_id")
+		{   
+if (e.ProposedValue.ToString().Trim().Length !=6 )
+			MessageBox.Show("学号长度必须等于6");
+		}
+}

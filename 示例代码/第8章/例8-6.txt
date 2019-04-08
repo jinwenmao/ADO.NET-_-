@@ -1,0 +1,9 @@
+private void Page_Load(object sender, System.EventArgs e)
+{
+   daStudent.Fill(dsStu);
+   if (!IsPostBack)
+   {
+      DataGrid1.DataBind();
+   }
+}
+

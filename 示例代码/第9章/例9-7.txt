@@ -1,0 +1,12 @@
+private void ReadSchemaFromStream(  ){
+   // 设置xml文件的名称和位置，此处根据你文件所在位置修改filename值
+   string filename="mySchema.xml";
+   // 用xml文件创建一个流对象,并打开文件.
+   System.IO.FileStream myFileStream = 
+      new System.IO.FileStream(filename,System.IO.FileMode.Open);
+   // 将架构读到 DataSet.
+   thisDataSet.ReadXmlSchema(myFileStream);
+   // 关闭流对象.
+   myFileStream.Close();
+}
+

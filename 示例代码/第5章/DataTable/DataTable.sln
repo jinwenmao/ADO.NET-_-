@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTable", "DataTable.csproj", "{A1090CBC-5E88-4C6F-ABB0-0D292B8F2420}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{A1090CBC-5E88-4C6F-ABB0-0D292B8F2420}.Debug.ActiveCfg = Debug|.NET
+		{A1090CBC-5E88-4C6F-ABB0-0D292B8F2420}.Debug.Build.0 = Debug|.NET
+		{A1090CBC-5E88-4C6F-ABB0-0D292B8F2420}.Release.ActiveCfg = Release|.NET
+		{A1090CBC-5E88-4C6F-ABB0-0D292B8F2420}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

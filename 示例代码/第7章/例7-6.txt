@@ -1,0 +1,9 @@
+1、在 Load 事件过程中添加如下代码
+daCla.Fill(dsData.classes);
+2、双击cbCla控件，在SelectedIndexChanged事件过程中添加如下代码
+   	private void cbCla_SelectedIndexChanged(object sender, System.EventArgs e)
+	{
+  		daStudnets.SelectCommand.Parameters[0].Value =cbCla.SelectedValue;
+		dsData.student.Clear();
+		daStudnets.Fill(dsData.student);
+	}

@@ -1,0 +1,18 @@
+第五步 编写代码
+切换到 Web 窗体页代码视图。通过向 Page_Load 方法添加一个 DataBind() 调用，将数据绑定到 DataGrid 的列。 
+private void Page_Load(object sender, System.EventArgs e)
+{
+this.daCla .Fill(this.dsData.classes);
+this.daStu .Fill(this.dsData.student);
+this.DataBind ();
+}   
+在窗体设计器中，双击dgStu数据网格控件。在代码编辑器中添加SelectedIndexChanged的事件处理程序。
+private void DataGrid1_SelectedIndexChanged(object sender, System.EventArgs e)
+{
+  this.dvStu.Table=this.dsData.student;
+  this.dvStu .RowFilter="cla_id='"+this.dgCla.SelectedItem.Cells[0].Text+"'";
+  this.lsStu.DataSource=this.dvStu;
+  this.lsStu.DataValueField="stu_id";
+  this.lsStu.DataTextField="name";
+  this.lsStu.DataBind();
+}

@@ -1,0 +1,13 @@
+1.更改page_load事件，在会话状态中存储数据
+private void Page_Load(object sender, System.EventArgs e)
+{
+	if (this.IsPostBack )
+	this.dsData=(DataSet1)this.Session["dsData"];
+else 
+	{
+		this.daCla .Fill(this.dsData.classes);
+		this.daStu .Fill(this.dsData.student);
+		this.Session["dsData"]=this.dsData;
+	}
+	this.DataBind();
+}   	

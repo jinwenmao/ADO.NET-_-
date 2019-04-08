@@ -1,0 +1,43 @@
+在Form1的构造函数中添加如下代码：
+	System.EventArgs ea;
+	ea = new System.EventArgs();
+	AddNodes(this, ea);
+
+编写如下代码
+	private void AddNodes(object sender , System.EventArgs e)
+	{
+   	    int intLoop,intLoop1,intLoop2;
+	  string cla_id,stu_id;
+	  System.Windows.Forms.TreeNode root,r1,r2,r3;
+	  System.Windows.Forms.TreeView tv;
+	  tv=this.tvclaStudent;
+	   root=tv.Nodes.Add ("学校");
+	   this.daClasses .Fill(this.dataSet1.classes );
+		this.daStudent.Fill(this.dataSet1.student );
+		this.daScore.Fill(this.dataSet1.score);
+		for (intLoop=0;intLoop<=this.dataSet1.classes.Count -1;intLoop++)
+		 {   
+			root.ImageIndex=0;
+r1=root.Nodes.Add (this.dataSet1.classes[intLoop]["claname"].ToString());
+			r1.ImageIndex=1;
+			cla_id=this.dataSet1.classes[intLoop]["cla_id"].ToString();
+			for (intLoop1=0;intLoop1<=this.dataSet1.student.Count -1;intLoop1++)
+      		 	{   
+			  if (this.dataSet1.student[intLoop1]["cla_id"].ToString()==cla_id)
+			{
+			 stu_id=this.dataSet1.student[intLoop1]["stu_id"].ToString();
+r2=r1.Nodes.Add(this.dataSet1.student[intLoop1]["name"].ToString()+
+"["+this.dataSet1.student[intLoop1]["stu_id"].ToString()+"]");
+		             r2.ImageIndex=2;
+			for(intLoop2=0;intLoop2<=this.dataSet1.student.Count -1;intLoop2++)
+			if (stu_id==this.dataSet1.score[intLoop2]["stu_id"].ToString())
+			{
+	                   r3=r2.Nodes.Add(this.dataSet1.score[intLoop2]["cou_name"].ToString()+
+"["+this.dataSet1.score[intLoop2]["cou_id"].ToString()+"]"+
+                  		     this.dataSet1.score[intLoop2]["score"].ToString()); 
+			    r3.ImageIndex=3;
+			 }
+			}
+		}
+	}
+

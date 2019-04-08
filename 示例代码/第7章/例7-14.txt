@@ -1,0 +1,13 @@
+private void tb_Stuno_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			if (this.tb_Stuno.Text.Substring(0,1)!="A")
+			{
+				this.errorProvider1.SetError(this.tb_Stuno,"学号第首位为A");
+				e.Cancel=true;
+			}
+			else
+			{
+			  this.errorProvider1 .SetError (this.tb_Stuno ,"");
+			  e.Cancel=false;
+			}
+}

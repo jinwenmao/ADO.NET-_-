@@ -1,0 +1,5 @@
+private void Button1_Click(object sender, System.EventArgs e)
+{
+	this.sqlDataAdapter1.Fill (this.dataSet11.Employees);
+	this.DataBind();
+}

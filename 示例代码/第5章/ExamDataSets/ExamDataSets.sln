@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamDataSets", "ExamDataSets.csproj", "{B609E504-90B3-4A55-8A81-A333B4E2C83E}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{B609E504-90B3-4A55-8A81-A333B4E2C83E}.Debug.ActiveCfg = Debug|.NET
+		{B609E504-90B3-4A55-8A81-A333B4E2C83E}.Debug.Build.0 = Debug|.NET
+		{B609E504-90B3-4A55-8A81-A333B4E2C83E}.Release.ActiveCfg = Release|.NET
+		{B609E504-90B3-4A55-8A81-A333B4E2C83E}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

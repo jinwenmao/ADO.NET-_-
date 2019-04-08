@@ -1,0 +1,6 @@
+	private void button1_Click(object sender, System.EventArgs e)
+	{
+		for (int i=0;i<this.dataSet11.student.Count;i++)
+			if (this.dataSet11.student[i]["cla_id"].ToString()=="")
+this.dataSet11.student.Rows[i].SetColumnError ("cla_id","班级不能为空");
+	}

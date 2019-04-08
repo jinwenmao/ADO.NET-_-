@@ -1,0 +1,40 @@
+（5）在WebForm1的代码隐藏事件处理程序中添加如下程序代码：
+//定义全局变量保存每页的开始项索引
+int startIndex=0;
+private void Page_Load(object sender, System.EventArgs e)
+{
+	//页面初始化进行数据绑定
+	if (!Page.IsPostBack) binDataGrid1rid();
+}
+void binDataGrid1rid()//显示Northwind数据库中Employees表的值的函数
+{
+	//创建连接对象
+	SqlConnection sqlcon=new SqlConnection("user id=sa;data
+ source=local;persist security info=False;initial catalog=Northwind");
+	//创建数据集
+	DataSet ds=new DataSet();
+	//打开连接
+	sqlcon.Open();
+	//创建数据适配器
+	SqlDataAdapter sqld=new SqlDataAdapter("select employeeid,
+lastname,firstname,city from employees",sqlcon);
+//从指定的索引开始取PageSize条记录
+	sqld.Fill(ds,startIndex,this.DataGrid1.PageSize ,"CurDT");
+	//填充数据集
+	sqld.Fill(ds,"AllDT");
+	//设置DataGrid实际显示的项数
+this.DataGrid1 .VirtualItemCount =ds.Tables["AllDT"].Rows .Count ;
+	//数据绑定
+	DataGrid1.DataSource=ds.Tables["CurDT"];
+	DataGrid1.DataBind();
+	//关闭连接
+	sqlcon.Close();
+	sqlcon=null;
+}
+（6）在DataGrid1_PageIndexChanged_1事件中添加以下代码：
+	private void DataGrid1_PageIndexChanged_1(object source,
+ System.Web.UI.WebControls.DataGridPageChangedEventArgs e)
+	{
+	this.DataGrid1.CurrentPageIndex=e.NewPageIndex ;
+	startIndex=this.DataGrid1.PageSize *this.DataGrid1.CurrentPageIndex;
+	binDataGrid1rid();

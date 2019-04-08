@@ -1,0 +1,70 @@
+在窗体frFind上添加如下方法：
+//生成过滤/查找条件
+public string GetWhere
+{
+get
+{
+	string Ls_where="";
+	if (this.tbcla.Text != "")  Ls_where+="cla_id like '%"+this.tbcla.Text+"%' and" ;
+	if (this.tbID.Text != "")  Ls_where+="stu_id like '%"+this.tbID.Text+"%' and" ;
+	if (this.tbName.Text!="")  Ls_where+=" name like '%"+this.tbName.Text+"%'  and";
+	if (this.tbSex.Text!="")  Ls_where+=" sex = '"+this.tbSex.Text+"'  and";
+	if (this.tbAdd.Text!="")  Ls_where+=" addr like '%"+this.tbAdd.Text+"%'  and";
+Ls_where+=" 1=1";
+	return Ls_where;
+	}
+}
+
+
+
+第四步  编写代码
+1.在frmStudent 的btFind按钮Click事件中，编写如下代码：
+	private void btFind_Click(object sender, System.EventArgs e)
+	{
+		System.Data.DataView dv=this.dataSet11.student.DefaultView;
+		dv.Sort ="stu_id";   //按stu_id 排序
+		string id;
+		int idx;
+		if (comboBox1.Text=="学号")
+		{
+			id = textBox1.Text;
+			idx = dv.Find(id);   
+			if (idx == -1)
+				MessageBox.Show( id.ToString()+"没找到" , "错误");
+			else
+				this.BindingContext[this.dataSet11.student].Position = idx; 
+ //移动到idx
+		}
+		else
+	{
+			string name;
+			System.Data.DataTable dt = this.dataSet11.student;
+			DataSet1.studentRow cr;
+			System.Data.DataRow[] dr;
+			name = textBox1.Text;
+			try
+			{   
+				dr = dt.Select("name = '" + name + "'");  
+				cr = (DataSet11.studentRow)dr[0];
+				id = cr.stu_id.ToString();
+				idx = dv.Find(id);
+this.BindingContext[this.dataSet11.student].Position=idx;
+			}
+			catch
+			{
+				MessageBox.Show( name + " 没有找到", "错误");
+			}
+			}
+	}
+ 3.在frmStudent 的btFilter按钮Click事件中，编写如下代码：
+	private void btfilter_Click(object sender, System.EventArgs e)
+	{
+		FindFS fcForm = new FindFS();
+		System.Data.DataView dv=this.dataSet11.student.DefaultView;
+		if (fcForm.ShowDialog() == DialogResult.OK) 
+		{
+			System.Data.DataTable dt = this.dataSet11.student;
+	         		  dv.RowFilter=fcForm.GetWhere;
+		}
+	}
+

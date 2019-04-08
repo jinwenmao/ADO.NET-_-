@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="EditSamples">
+</Property><Property Name="解决方案文件" Value="E:\孟彬\教学\教学材料\柴晟--ADO.NET数据库访问技术案例式教程\ADO.NET数据库访问技术案例式教程_教学包\示例代码\第6章\EditSamples\EditSamples.sln">
+</Property><Property Name="Date" Value="2008年10月8日">
+</Property><Property Name="Time" Value="11:32">
+</Property></Properties><Event ErrorLevel="0" Project="EditSamples" Source="EditSamples.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="EditSamples" Source="EditSamples.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="EditSamples.sln" Description="成功转换解决方案">
+</Event><Event ErrorLevel="3" Project="" Source="EditSamples.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="EditSamples" Source="EditSamples.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event></UpgradeLog>

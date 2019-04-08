@@ -1,0 +1,69 @@
+
+1.初始化页
+双击 Web 窗体页打开代码编辑器并查找 Page_Load 事件处理程序。 
+下面的示例以执行上述步骤所需的代码显示完整的 Page_Load 方法： 
+private void Page_Load(object sender, System.EventArgs e)
+	{
+//测试页的 IsPostBack 属性以确定是否这是第一次运行该页。如果是第一次运行该页，则执行其余的步骤。
+	  if (!IsPostBack)
+	   {
+		 System.Data.SqlClient.SqlDataReader dreader;
+		 sqlConnection1.Open();
+		 dreader = cmdStuAll.ExecuteReader();
+		 bool firstrow = true;
+//在循环中，使用数据阅读器获取每个连续的记录。
+		 while (dreader.Read())
+		{
+//对于每个记录，在下拉列表中创建一个新项，然后分配给它一个学号。
+		 ddlStuID.Items.Add(new ListItem(dreader[0].ToString()));
+		 ddlcla.Items.Add (new ListItem(dreader[1].ToString()));
+//只获取第一个记录的班级、姓名、性别、地址并将它们设置为文本框的 Text 属性。
+		 if (firstrow)
+		 {		  txtCla.Text = dreader[1].ToString();
+		  txtStuName.Text = dreader[2].ToString();
+		  txtSex.Text = dreader[3].ToString();
+		  txtAddr.Text = dreader[4].ToString();
+		  firstrow = false;
+		}
+	  }
+	  dreader.Close();
+	  sqlConnection1.Close();
+	}
+2.根据学号选择学生信息
+双击下拉列表以打开代码编辑器并创建 SelectedIndexChanged 事件处理程序。
+private void ddlStuID_SelectedIndexChanged(object sender, System.EventArgs e)
+	{
+	  string Stuid;
+//从下拉列表中获取用户选择的文本
+      Stuid = ddlStuID.SelectedItem.Text;
+//将 cmdStuId 命令的参数 (@Stuid) 设置为所选的学号Stu_id
+	  cmdStuId.Parameters["@stu_id"].Value = Stuid;
+	  sqlConnection1.Open();
+/*创建数据阅读器实例变量并调用 cmdStuId对象的 ExecuteReader 方法以执行该命令。使用数据阅读器获取返回的记录，然后在文本框中显示其值。 */
+System.Data.SqlClient.SqlDataReader dreader;
+	  dreader = cmdStuId.ExecuteReader(CommandBehavior.SingleRow);
+	  if (dreader.Read())
+	{
+	  txtCla.Text = dreader[1].ToString();
+	  txtStuName.Text = dreader[2].ToString();
+	  txtSex.Text = dreader[3].ToString();
+	  txtAddr.Text = dreader[4].ToString();
+	}
+	dreader.Close();
+	sqlConnection1.Close();
+}
+3.更新记录
+双击【保存】按钮创建一个 Click 处理程序。  
+private void btnSave_Click(object sender, System.EventArgs e)
+{
+//将参数设置为页中控件的值
+cmdStuUpdate.Parameters["@stu_id"].Value=ddlStuID.SelectedItem.Text.ToString();
+cmdStuUpdate.Parameters["@name"].Value = txtStuName.Text ;
+cmdStuUpdate.Parameters["@cla_id"].Value = txtCla.Text;
+cmdStuUpdate.Parameters["@sex"].Value = txtSex.Text;
+cmdStuUpdate.Parameters["@Addr"].Value = txtAddr.Text;
+//打开连接。
+ sqlConnection1.Open();
+ cmdStuUpdate.ExecuteNonQuery();
+ sqlConnection1.Close();
+}。

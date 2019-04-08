@@ -1,0 +1,50 @@
+第三步 添加事件代码
+1.声明全局变量
+public int pagePosition;
+2.将下面的代码添加到Page_load方法中
+private void Page_Load(object sender, System.EventArgs e)
+{
+	if (this.IsPostBack == true)
+	{
+		this.dataSet11  = (DataSet1) ViewState["DataSet1"];
+		this.pagePosition = (int) ViewState["pagePosition"];
+	}
+	else
+	{
+		this.oleDbDataAdapter1.Fill(this.dataSet11.student);
+		ViewState["DataSet1"] = this.dataSet11 ;
+		ViewState["pagePosition"] = 0;
+	}
+	this.DataBind();
+}
+3.在窗体设计器属性窗口的控件组合框中选择Position，选择事件钮，在DataBinding事件中添加如下代码：
+private void stupos_DataBinding(object sender, System.EventArgs e)
+{
+	DataRow dr;
+	dr = this.dataSet11.student.DefaultView[pagePosition].Row;
+	this.txtStuID.Text = DataBinder.Eval(dr, "Stu_ID").ToString();
+	this.txtName.Text = (string) DataBinder.Eval(dr, "name");
+	this.txtSex.Text = (string) DataBinder.Eval(dr, "sex");
+	this.txtAddr.Text = (string) DataBinder.Eval(dr, "Addr");
+}
+4.分别对“上一页”、“下一页”的Click事件添加如下代码
+	private void btnNext_Click(object sender, System.EventArgs e)
+	{
+		if (this.pagePosition < this.dataSet11.student.Count - 1)
+		{
+			this.pagePosition++;
+			ViewState["pagePosition"] = this.pagePosition;
+			this.DataBind();
+		}
+	}
+
+private void btnPrevious_Click(object sender, System.EventArgs e)
+	{
+	if (this.pagePosition > 0)
+		{
+			this.pagePosition -= 1;
+			ViewState["pagePosition"] = this.pagePosition;
+			this.DataBind();
+		}
+	}
+

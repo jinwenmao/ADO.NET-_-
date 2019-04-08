@@ -1,0 +1,10 @@
+	private void ReadXmlDataAndSchema()
+	{
+		try{
+			DataSet myDS=new DataSet();
+			myDS.ReadXml("data.xml",XmlReadMode.ReadSchema);
+		}
+		catch(Exception e){
+			Console.WriteLine("Exception:"+e.ToString);
+		}
+	}

@@ -1,0 +1,119 @@
+第一步 定义窗体的load事件
+定一个窗体级别的CurrencyManager的变量
+CurrencyManager cmStudent;
+将窗体的load事件修改为：
+private void frmStudent_Load(object sender, System.EventArgs e)
+{
+BindtB(); //运行时绑定tb_sex文本框
+	daStudents.Fill(dsStudents);
+	cmStudent=(CurrencyManager) BindingContext[dsStudents,"student"];  
+cmStudent.ItemChanged+=new ItemChangedEventHandler(cmStudent_ItemChanged);
+		cmStudent.PositionChanged+=new EventHandler(cmStudent_PositionChanged);
+		DispStuPos();  //显示当前记录位置
+  }
+
+//定义绑定管理器类激发两个相关事件， PositionChanged 和 CurrentChanged。
+private void cmStudent_PositionChanged(object sender, EventArgs e)
+{
+  DispStuPos();//显示当前记录位置
+}
+private void cmStudent_CurrentChanged(object sender, EventArgs e)
+{
+	DispStuPos();//显示当前记录位置
+}
+
+//显示当前记录位置
+void DispStuPos()
+{ 
+label1.Text=(cmStudent.Position+1).ToString()+"/"+cmStudent.Count.ToString();
+} 
+
+ToolBobar控件ToolBar1的Click事件输入如下代码： 
+private void toolBar1_ButtonClick(object sender, System.Windows.Forms.ToolBarButtonClickEventArgs  e)
+{
+Brow(e.Button.ToolTipText);  //浏览记录
+Modi(e.Button.ToolTipText);//增加、删除记录
+}
+第二步 添加浏览方法代码
+void Brow(string e)
+{
+if (e=="首记录")
+{   
+cmStudent.Position = 0;
+return;
+}
+if (e == "下一条")
+{
+if (cmStudent.Position >= 0) cmStudent.Position++;
+return;
+}
+if (e == "上一条")
+{
+if (cmStudent.Position <= cmStudent.Count-1)cmStudent.Position--;
+return;
+}
+if (e == "尾记录")
+{
+cmStudent.Position = cmStudent.Count-1;
+return;
+}
+}
+
+第三步添加增加和删除按钮代码
+ CurrencyManager对象公开的方法可以用来在控件所绑定的结构中添加或删除数据。AddNew方法添加新的数据记录，而RemoveAt方法删除现有数据记录。在调用这两种方法中的任何一个时，绑定到CurrencyManager对象的控件会做出相应的反应。如果用AddNew方法添加一个记录，则控件就显示新记录的内容。调用RemoveAt方法会让控件显示下一条可用项的内容。
+void Modi(string e)
+{
+if (e == "增加")
+{
+	cmStudent.AddNew ();
+	SetEditMode(true);  //修改按钮属性
+	return;
+}
+	if (e == "删除")
+	{
+	 if (cmStudent.Count>0)
+  cmStudent.RemoveAt (cmStudent.Position);
+			 else
+MessageBox.Show("没有要删除的记录","删除",MessageBoxButtons.OK,MessageBoxIcon.Error);
+			 return;
+		}
+}
+
+void SetEditMode(bool blnEdit)//
+{
+	Fist.Enabled =!blnEdit;
+	Previous.Enabled=!blnEdit;
+	Next.Enabled =!blnEdit;
+	Last.Enabled =!blnEdit;
+	Add.Enabled=!blnEdit;
+	Delete.Enabled=!blnEdit;
+}
+
+第四步 提交更改
+ CurrencyManager对象只有在发生了下面两个事件之一后才会提交尚未提交的更改，它们是CurrencyManager移到另一行或者CurrencyManager对象的EndCurrentEdit方法被调用后。因此，可以在调用AdataAdapter对象的Update方法之前包含一个对CurrencyManager 对象的EndCurrenEdit 方法的调用来提交更改。
+增加一个“确定”按钮，添加Click事件的代码
+private void btOk_Click(object sender, System.EventArgs e)
+{
+ SetEditMode(false);         //修改按钮属性
+cmStudent.EndCurrentEdit ();// 确认修改结束
+if (dsStudents.HasChanges())
+{
+  try
+{
+	 int intStudentModified;
+	 intStudentModified=daStudents.Update(dsStudents.student);
+	 string strOutput;
+	 strOutput="有"+intStudentModified+"被修改";
+ MessageBox.Show (strOutput,"提交",MessageBoxButtons.OK ,MessageBoxIcon.Information );
+	}
+catch (Exception ex)
+		{
+ MessageBox.Show (ex.Message ,"提交",MessageBoxButtons.OK ,MessageBoxIcon.Error);
+		}
+}
+else
+MessageBox.Show ("没有要提交的记录" ,"提交",MessageBoxButtons.OK ,MessageBoxIcon.Information );
+}
+
+增加一个【关闭】按钮，添加Click事件的代码如下。
+	this.Close();

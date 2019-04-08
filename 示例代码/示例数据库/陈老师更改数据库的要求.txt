@@ -1,0 +1,50 @@
+根据应用的需要，对数据库有所更改，可否？ 11.20
+ 
+   
+  CREATE TABLE [dbo].[classes] (  
+  [cla_id] [char] (10) COLLATE Chinese_PRC_CI_AS NOT NULL ,  
+  [claname] [char] (60) COLLATE Chinese_PRC_CI_AS NULL ,  
+  [grad] [char] (4) COLLATE Chinese_PRC_CI_AS NULL   
+  ) ON [PRIMARY]  
+  GO  
+   
+  CREATE TABLE [dbo].[course] (  
+  [cou_id] [char] (20) COLLATE Chinese_PRC_CI_AS NOT NULL ,  
+  [cou_name] [varchar] (40) COLLATE Chinese_PRC_CI_AS NOT NULL ,  
+  [teacher_id] [char] (10) COLLATE Chinese_PRC_CI_AS NULL ,  
+  [cou_hour] [int] NULL ,  
+  [describe] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL   
+  ) ON [PRIMARY]  
+  GO  
+   
+  CREATE TABLE [dbo].[login] (  
+  [name] [char] (10) COLLATE Chinese_PRC_CI_AS NULL ,  
+  [password] [char] (10) COLLATE Chinese_PRC_CI_AS NULL   
+  ) ON [PRIMARY]  
+  GO  
+   
+  CREATE TABLE [dbo].[score] (  
+  [stu_id] [char] (10) COLLATE Chinese_PRC_CI_AS NOT NULL ,  
+  [cou_id] [char] (20) COLLATE Chinese_PRC_CI_AS NOT NULL ,  
+  [score] [int] NULL ,  
+  [term] [char] (10) COLLATE Chinese_PRC_CI_AS NOT NULL   
+  ) ON [PRIMARY]  
+  GO  
+   
+  CREATE TABLE [dbo].[student] (  
+  [stu_id] [char] (10) COLLATE Chinese_PRC_CI_AS NOT NULL ,  
+  [cla_id] [char] (10) COLLATE Chinese_PRC_CI_AS NULL ,  
+  [name] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,  
+  [sex] [char] (4) COLLATE Chinese_PRC_CI_AS NULL ,  
+  [addr] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,  
+  [birthday] [datetime] NULL ,  
+  [enexam] [int] NULL ,  
+  [photo] [image] NULL ,  
+  [photopath] [nvarchar] (255) COLLATE Chinese_PRC_CI_AS NULL ,  
+  [status] [bit] NULL   
+  ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]  
+  GO  
+   
+   
+   
+  (  )  

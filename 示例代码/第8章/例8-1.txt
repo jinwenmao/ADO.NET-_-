@@ -1,0 +1,32 @@
+1.在【解决方案资源管理器】中，右击 Component1.cs，然后从快捷菜单中选择【查看代码】切换到组件代码视图。 将下列方法添加到 Component1 类，如下所示： 
+   public void FillDataSet(myDataSet1 dSet)
+   {
+      sqlDataAdapter1.Fill(dSet);
+   }
+
+
+2.右击在【解决方案资源管理器】中文件 WebForm1.aspx，然后从快捷菜单中选择【查看代码】，切换到 Web 窗体代码视图。打开代码隐藏文件，即 WebForm1.aspx.cs。 
+在 WebForm1 类中的顶层声明一个组件对象，如下所示： 
+
+public class WebForm1 : System.Web.UI.Page
+{
+   ...
+   protected Component1 myComponent = new Component1();
+   ...
+}
+
+修改 Page_Load 方法以调用 FillDataSet()，如下所示： 
+private void Page_Load (object sender, System.EventArgs e)
+{   
+if (! IsPostBack)  //，浏览器第一次命中该页时，为 true。 
+   {
+      myComponent.FillDataSet(myDataSet11);
+      this.DataBind();
+   }
+}
+
+
+运行时绑定
+在窗体设计器中选择tbaddr(地址)文本框，选择Event按钮，双击DataBinging,添加如下事件处理程序。
+this.tbaddr.Text =this.myDataSet11.student[0].addr ；
+

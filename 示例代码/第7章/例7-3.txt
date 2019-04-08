@@ -1,0 +1,61 @@
+1、窗体的load事件代码定义为
+private void frmStudent_Load(object sender, System.EventArgs e)
+	{  
+        　BindtB();//下面代码将tb_sex文本框与Student.sex列绑定
+	　　 displayForamt();//按自定义格式显示出生日期
+		daStudents.Fill(dsStudents);
+		cmStudent=(CurrencyManager) BindingContext[dsStudents,"student"];
+cmStudent.ItemChanged+=new ItemChangedEventHandler(cmStudent_ItemChanged);
+		cmStudent.PositionChanged+=new EventHandler(cmStudent_PositionChanged);
+		cmStudent.CurrentChanged+=new EventHandler(cmStudent_CurrentChanged);
+		DispStuPos();
+	}
+2、定义displayForamt方法
+private void displayForamt()
+{
+this.tb_birthday.DataBindings[0].Format+=new ConvertEventHandler(frmStudent_Format);
+}
+3、定义下列事件处理程序到类定义的底部
+//格式显示日期
+using System.Globalization;
+private void frmStudent_Format(object sender, ConvertEventArgs e)
+{  
+	DateTime dDT;
+	string sDT;
+	if (this.tb_birthday.Tag.ToString() !="PARSE")
+	 {
+	　　sDT=e.Value.ToString();
+	　　if (sDT=="") 
+	 　　　{ 
+e.Value="";
+return ;
+}
+		dDT=DateTime.Parse(e.Value.ToString()); 
+		sDT=dDT.ToShortDateString();
+		e.Value=sDT;
+	  }
+       this.tb_birthday.Tag="FORMAT";
+	}
+
+4、由于“性别”采用在程序运行时绑定，所以修改BindtB方法，设数据W表示“男”，M表示“女”。
+void BindtB()
+{
+System.Windows.Forms.Binding  newBinding;
+newBinding=new System.Windows.Forms.Binding("Text",this.dsStudents,"Student.sex");
+//设置性别的显示格式，M:男　　W:女
+newBinding.Format += new ConvertEventHandler(DtoC);
+newBinding.Parse += new ConvertEventHandler(CtoD);
+this.tb_Sex.DataBindings .Add(newBinding);
+}
+private void DtoC( object sender, ConvertEventArgs cevent ) 
+{
+　if (this.tb_Sex.Tag.ToString() !="PARSE")
+{　
+		   if (cevent.Value.ToString().Trim().ToUpper()=="M") 
+			cevent.Value="男";
+		else 
+		   if (cevent.Value.ToString().Trim().ToUpper()=="W")
+		cevent.Value="女";
+	   }
+	this.tb_Sex.Tag="FORMAT";
+}

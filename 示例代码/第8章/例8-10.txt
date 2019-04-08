@@ -1,0 +1,8 @@
+第二步 添加代码
+1.在属性窗口中显示DataGrid1事件，并双击PageIndexChanged。
+2.添加如下的代码行到事件处理程序中。
+private void DataGrid1_SortCommand(object source, System.Web.UI.WebControls.DataGridSortCommandEventArgs e)
+{
+this.dataView1.Sort=e.SortExpression;
+this.DataBind();
+}

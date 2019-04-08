@@ -1,0 +1,9 @@
+Document1£º
+<DocumentElement>
+  <Element1>Text1</Element1>
+  <Element1>Text2</Element1>
+</DocumentElement>
+Document2£º
+<DocumentElement>
+  <Element1>Text1</Element1>
+</DocumentElement>

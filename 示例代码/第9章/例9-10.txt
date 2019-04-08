@@ -1,0 +1,10 @@
+	private void writeXml Data ()
+	{
+		try{
+			DataSet myDS=new DataSet();
+			myDS.writeXml(¡°data.xml¡±,XmlWriteMode.IgnoreSchema);
+		}
+		catch(Exception e){
+			Console.WriteLine("Exception:"+e.ToString);
+		}
+	}

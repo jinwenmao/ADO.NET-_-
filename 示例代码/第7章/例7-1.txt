@@ -1,0 +1,6 @@
+void BindtB()
+{
+	System.Windows.Forms.Binding  newBinding;
+	newBinding=new System.Windows.Forms.Binding("Text",this.dsStudent,"student.sex");
+	this.tb_Sex.DataBindingsAdd(newBinding);
+}

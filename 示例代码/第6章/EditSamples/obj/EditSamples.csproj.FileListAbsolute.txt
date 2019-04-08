@@ -1,0 +1,7 @@
+E:\孟彬\教学\教学材料\柴晟--ADO.NET数据库访问技术案例式教程\ADO.NET数据库访问技术案例式教程_教学包\示例代码\第6章\EditSamples\obj\Debug\EditSamples.exe
+E:\孟彬\教学\教学材料\柴晟--ADO.NET数据库访问技术案例式教程\ADO.NET数据库访问技术案例式教程_教学包\示例代码\第6章\EditSamples\obj\Debug\EditSamples.pdb
+E:\孟彬\教学\教学材料\柴晟--ADO.NET数据库访问技术案例式教程\ADO.NET数据库访问技术案例式教程_教学包\示例代码\第6章\EditSamples\bin\Debug\EditSamples.exe
+E:\孟彬\教学\教学材料\柴晟--ADO.NET数据库访问技术案例式教程\ADO.NET数据库访问技术案例式教程_教学包\示例代码\第6章\EditSamples\bin\Debug\EditSamples.pdb
+E:\孟彬\教学\教学材料\柴晟--ADO.NET数据库访问技术案例式教程\ADO.NET数据库访问技术案例式教程_教学包\示例代码\第6章\EditSamples\obj\Debug\ResolveAssemblyReference.cache
+E:\孟彬\教学\教学材料\柴晟--ADO.NET数据库访问技术案例式教程\ADO.NET数据库访问技术案例式教程_教学包\示例代码\第6章\EditSamples\obj\Debug\EditSamples.frmEditData.resources
+E:\孟彬\教学\教学材料\柴晟--ADO.NET数据库访问技术案例式教程\ADO.NET数据库访问技术案例式教程_教学包\示例代码\第6章\EditSamples\obj\Debug\EditSamples.csproj.GenerateResource.Cache

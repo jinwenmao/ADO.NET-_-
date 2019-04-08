@@ -1,0 +1,11 @@
+private void Page_Load(object sender, System.EventArgs e)
+{
+	if (this.IsPostBack )
+	this.dsData=(DataSet1)this.ViewState["dsData"];
+	{
+		this.daCla .Fill(this.dsData.classes);
+		this.daStu .Fill(this.dsData.student);
+		this.ViewState["dsData"]=this.dsData;
+	}
+	this.DataBind ();
+}   

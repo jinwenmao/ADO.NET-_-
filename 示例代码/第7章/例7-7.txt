@@ -1,0 +1,9 @@
+	private void Form1_Load(object sender, System.EventArgs e)
+	{
+		daCourse.Fill(dataSet);
+		daScore.Fill(dataSet); 
+		this.lbCoure.DataSource =this.dataSet  ;
+		this.lbCoure.DisplayMember ="course.cou_name";
+		this.lbScore .DataSource =this.dataSet ;
+		this.lbScore.DisplayMember ="course.coursescore.name";
+	}

@@ -1,0 +1,13 @@
+private void ReadSchemaFromFile(){
+try{
+	     //创建一个DataSet对象，用于读取架构
+	       DataSet MYds = new DataSet();
+	     // 将文件名称和路径付给一个字符串对象，根据你文件存储位置修改字符串的值
+	   string filename ="F:\\实例\\datasetxml\\students.xsd";
+	     //调用 ReadXmlSchema方法
+	       MYds.ReadXmlSchema(filename);
+}
+Catch(Exception e){
+	       System.Console.WriteLine("发现异常:"&e.toString());	
+	}
+}

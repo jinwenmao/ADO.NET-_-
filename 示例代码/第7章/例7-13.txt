@@ -1,0 +1,7 @@
+cmStudent=(CurrencyManager) BindingContext[dsStudents,"student"];
+cmStudent.ItemChanged+=new ItemChangedEventHandler(cmStudent_ItemChanged);
+
+private void cmStudent_ItemChanged(object sender, ItemChangedEventArgs e)
+	{
+         	  MessageBox.Show("第"+(e.Index+1).ToString()+" 行已更改");
+	}

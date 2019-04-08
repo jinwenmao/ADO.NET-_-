@@ -1,0 +1,13 @@
+1、在例7-1项目 student的frmStudent窗体构造函数后面添加如下代码
+this.dsStudents.student.RowChanging+=new DataRowChangeEventHandler(student_RowChanging);
+把下列语句添加到类文件中
+	private void student_RowChanging(object sender, DataRowChangeEventArgs e)
+	{
+		if (e.Action.ToString()=="Change")
+		{
+			if (e.Row["name"].ToString().Trim()=="")
+				  MessageBox.Show("姓名不能为空");
+			if (e.Row["sex"].ToString().Trim()=="")
+				MessageBox.Show("性别不能为空");
+		}
+	}
